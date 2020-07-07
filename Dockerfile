@@ -2,6 +2,7 @@ FROM jenkins/jenkins:lts
 MAINTAINER dmksaus@gmail.com
 USER root
 
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 RUN apt-get update && \
     apt-get -y install apt-transport-https \
       ca-certificates \
