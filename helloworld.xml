@@ -1,0 +1,31 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.39">
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.plugins.jira.JiraProjectProperty plugin="jira@3.1.1"/>
+    <com.dabsquared.gitlabjenkins.connection.GitLabConnectionProperty plugin="gitlab-plugin@1.5.13">
+      <gitLabConnection></gitLabConnection>
+    </com.dabsquared.gitlabjenkins.connection.GitLabConnectionProperty>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.81">
+    <script>node {
+    stage(&apos;Preparation&apos;) { // for display purposes
+        // Get some code from a GitHub repository
+        git &apos;https://github.com/jakerella/node-unit-tests.git&apos;
+    }
+    stage(&apos;Build&apos;) {
+        // Run the npm build
+        sh &apos;npm install&apos;
+    }
+    stage(&apos;Test&apos;) {
+        sh &apos;npm test&apos;
+    }
+}
+</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+  <disabled>false</disabled>
+</flow-definition>
