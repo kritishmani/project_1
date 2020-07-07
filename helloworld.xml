@@ -13,14 +13,23 @@
     <script>node {
     stage(&apos;Preparation&apos;) { // for display purposes
         // Get some code from a GitHub repository
-        git &apos;https://github.com/jakerella/node-unit-tests.git&apos;
+        git &apos;https://github.com/dmksaus/node-js-unittest.git&apos;
+        env.PATH=&quot;${env.NODEJS_HOME}/bin:${env.PATH}&quot;;
     }
     stage(&apos;Build&apos;) {
-        // Run the npm build
-        sh &apos;npm install&apos;
+        // Run the npm build 
+	sh &apos;npm install&apos;
+	// install the code coverage plugin
+	sh &apos;npm i nyc --save-dev&apos;
+	//Install Run the eslint plugin 
+        sh &apos;npm install --save-dev eslint eslint-config-strongloop&apos;
+        
     }
     stage(&apos;Test&apos;) {
-        sh &apos;npm test&apos;
+        // The first statement would run the unit test cases with code coverage
+	sh &apos;npm test&apos;
+	// The second one will run the linting analysis
+        sh &apos;npm run lint&apos;
     }
 }
 </script>

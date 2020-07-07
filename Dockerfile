@@ -22,6 +22,7 @@ COPY ./jenkins-plugins /usr/share/jenkins/plugins
 RUN while read i ; \
                 do /usr/local/bin/install-plugins.sh $i ; \
         done < /usr/share/jenkins/plugins
+RUN apt install npm
 
 #Update the username and password
 ENV JENKINS_USER admin
@@ -35,6 +36,7 @@ ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 
 # Jenkins runs all grovy files from init.groovy.d dir
 # use this for creating default admin user
+#COPY default-user.groovy /usr/share/jenkins/ref/init.groovy.d/
 COPY helloworld.xml /usr/share/jenkins/ref/jobs/HelloWorld/config.xml
 
 VOLUME /var/jenkins_home
